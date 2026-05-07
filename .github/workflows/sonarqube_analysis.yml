@@ -33,9 +33,13 @@ jobs:
         continue-on-error: true
         run: npm audit --production || true
 
-      - name: Run ESLint with Security Plugin
+      - name: Run ESLint with JSON report
         continue-on-error: true
-        run: npm run lint || true
+        run: npm run lint -- --format json --output-file eslint-report.json || true
+
+      - name: Analyze custom vulnerabilities
+        continue-on-error: true
+        run: npm run analyze-vuln || true
 
       - name: Run full security check
         continue-on-error: true
@@ -50,7 +54,8 @@ jobs:
           args: >
             -Dsonar.projectKey=secure-audit-lab
             -Dsonar.projectName=Secure%20Audit%20Lab
-            -Dsonar.exclusions=node_modules/**,.git/**
             -Dsonar.sources=.
-            -Dsonar.inclusions=server.js,public/**/*.js
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.inclusions=**/*.js,**/*.jsx
+            -Dsonar.exclusions=node_modules/**,.git/**,logs/**,**/node_modules/**
+            -Dsonar.javascript.file.suffixes=.js,.jsx
+            -Dsonar.externalIssuesReportPaths=eslint-report.json
