@@ -157,7 +157,7 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@v2.2.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          : ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           args: >
-            -Dsonar.externalIssuesReportPaths=eslint-report.json,vulnerabilities-report.jsonSONAR_HOST_URL
+            -Dsonar.externalIssuesReportPaths=eslint-report.json,vulnerabilities-report.json
