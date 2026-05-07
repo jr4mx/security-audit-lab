@@ -21,16 +21,10 @@ jobs:
           fetch-depth: 0  # Requerido para un mejor análisis de SonarQube
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4.0.2
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Cache SonarQube scanner
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
 
       - name: Install dependencies
         run: npm ci
